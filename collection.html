@@ -1,0 +1,1343 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Le Parfum — авторська парфумерія преміум класу. Перегляньте нашу повну колекцію унікальних ароматів та сувенірну продукцію.">
+  <title>Колекція | Le Parfum — Авторська парфумерія</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    /* Глобальні стилі */
+    :root {
+      --primary-color: #c27b91;
+      --primary-dark: #9e5e74;
+      --secondary-color: #6b4b3e;
+      --light-pink: #fff7fa;
+      --light-beige: #f9f5f0;
+      --text-dark: #4e3c3c;
+      --text-light: #fff0f4;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Roboto', sans-serif;
+      background-color: var(--light-pink);
+      color: var(--text-dark);
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      color: var(--secondary-color);
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+      transition: all 0.3s ease;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 12px 30px;
+      background-color: var(--primary-color);
+      color: white;
+      border: none;
+      border-radius: 30px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s;
+      text-align: center;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    .btn:hover {
+      background-color: var(--primary-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+    }
+
+    .btn-outline {
+      background-color: transparent;
+      border: 2px solid var(--primary-color);
+      color: var(--primary-color);
+    }
+
+    .btn-outline:hover {
+      background-color: var(--primary-color);
+      color: white;
+    }
+
+    .section {
+      padding: 80px 0;
+    }
+
+    .section-title {
+      font-size: 2.5rem;
+      margin-bottom: 30px;
+      text-align: center;
+      position: relative;
+    }
+
+    .section-title::after {
+      content: '';
+      display: block;
+      width: 80px;
+      height: 3px;
+      background-color: var(--primary-color);
+      margin: 15px auto 0;
+    }
+
+    .section-subtitle {
+      font-size: 1.2rem;
+      color: var(--secondary-color);
+      text-align: center;
+      max-width: 800px;
+      margin: 0 auto 40px;
+    }
+
+    /* Навігація */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background-color: rgba(255, 255, 255, 0.95);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      z-index: 1000;
+      transition: all 0.3s ease;
+    }
+
+    .navbar.scrolled {
+      background-color: rgba(255, 247, 250, 0.98);
+      padding: 10px 0;
+    }
+
+    .navbar-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 0;
+    }
+
+    .logo {
+      height: 60px;
+      transition: all 0.3s ease;
+    }
+
+    .nav-links {
+      display: flex;
+      list-style: none;
+    }
+
+    .nav-links li {
+      margin-left: 30px;
+      position: relative;
+    }
+
+    .nav-links a {
+      font-weight: 500;
+      color: var(--secondary-color);
+      padding: 5px 0;
+    }
+
+    .nav-links a:hover {
+      color: var(--primary-color);
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background-color: var(--primary-color);
+      transition: width 0.3s ease;
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    .mobile-menu-btn {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      color: var(--secondary-color);
+      cursor: pointer;
+    }
+
+    /* Кошик */
+    .cart-icon {
+      position: relative;
+      margin-left: 30px;
+      font-size: 1.3rem;
+      color: var(--secondary-color);
+      cursor: pointer;
+    }
+
+    .cart-count {
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      background-color: var(--primary-color);
+      color: white;
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      font-size: 0.7rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .cart-dropdown {
+      position: absolute;
+      top: 70px;
+      right: 20px;
+      width: 350px;
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      padding: 20px;
+      z-index: 1000;
+      display: none;
+    }
+
+    .cart-dropdown.active {
+      display: block;
+    }
+
+    .cart-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #eee;
+    }
+
+    .cart-items {
+      max-height: 300px;
+      overflow-y: auto;
+      margin-bottom: 15px;
+    }
+
+    .cart-item {
+      display: flex;
+      margin-bottom: 15px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid #f5f5f5;
+    }
+
+    .cart-item-img {
+      width: 60px;
+      height: 60px;
+      object-fit: cover;
+      border-radius: 5px;
+      margin-right: 15px;
+    }
+
+    .cart-item-details {
+      flex: 1;
+    }
+
+    .cart-item-name {
+      font-weight: 500;
+      margin-bottom: 5px;
+    }
+
+    .cart-item-price {
+      color: var(--primary-color);
+      font-weight: bold;
+    }
+
+    .cart-item-remove {
+      color: #999;
+      cursor: pointer;
+      font-size: 0.9rem;
+    }
+
+    .cart-total {
+      display: flex;
+      justify-content: space-between;
+      font-weight: bold;
+      margin-bottom: 15px;
+    }
+
+    .cart-empty {
+      text-align: center;
+      padding: 20px 0;
+      color: #777;
+    }
+
+    /* Фільтри */
+    .filters {
+      background-color: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+      margin-bottom: 40px;
+    }
+
+    .filter-group {
+      margin-bottom: 20px;
+    }
+
+    .filter-title {
+      font-weight: 500;
+      margin-bottom: 10px;
+      color: var(--secondary-color);
+    }
+
+    .filter-options {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .filter-option {
+      padding: 8px 15px;
+      background-color: var(--light-pink);
+      border-radius: 20px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .filter-option:hover, .filter-option.active {
+      background-color: var(--primary-color);
+      color: white;
+    }
+
+    /* Герой */
+    .hero {
+      padding: 150px 0 80px;
+      background: linear-gradient(135deg, var(--light-pink) 0%, var(--light-beige) 100%);
+      text-align: center;
+    }
+
+    .hero-content h1 {
+      font-size: 3.5rem;
+      margin-bottom: 20px;
+      color: var(--secondary-color);
+    }
+
+    .hero-content p {
+      font-size: 1.3rem;
+      color: var(--text-dark);
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    /* Колекція ароматів */
+    .collection-header {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
+    .perfume-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 30px;
+    }
+
+    .perfume-card {
+      background-color: white;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .perfume-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+    }
+
+    .perfume-badge {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background-color: var(--primary-color);
+      color: white;
+      padding: 5px 10px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: bold;
+      z-index: 1;
+    }
+
+    .perfume-img {
+      height: 300px;
+      width: 100%;
+      object-fit: cover;
+      transition: transform 0.3s;
+    }
+
+    .perfume-card:hover .perfume-img {
+      transform: scale(1.05);
+    }
+
+    .perfume-info {
+      padding: 20px;
+    }
+
+    .perfume-name {
+      font-size: 1.3rem;
+      margin-bottom: 10px;
+    }
+
+    .perfume-description {
+      color: #666;
+      margin-bottom: 15px;
+      font-size: 0.9rem;
+    }
+
+    .perfume-price {
+      font-weight: bold;
+      color: var(--primary-color);
+      font-size: 1.2rem;
+      margin-bottom: 15px;
+    }
+
+    .perfume-old-price {
+      text-decoration: line-through;
+      color: #999;
+      font-size: 1rem;
+      margin-left: 10px;
+    }
+
+    .add-to-cart {
+      width: 100%;
+      padding: 10px;
+      background-color: var(--secondary-color);
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .add-to-cart:hover {
+      background-color: #5a4032;
+    }
+
+    /* Пагінація */
+    .pagination {
+      display: flex;
+      justify-content: center;
+      margin-top: 50px;
+      gap: 10px;
+    }
+
+    .page-link {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-color: white;
+      color: var(--secondary-color);
+      transition: all 0.3s;
+    }
+
+    .page-link:hover, .page-link.active {
+      background-color: var(--primary-color);
+      color: white;
+    }
+
+    /* Підвал */
+    .footer {
+      background-color: var(--secondary-color);
+      color: white;
+      padding: 60px 0 20px;
+    }
+
+    .footer-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 40px;
+      margin-bottom: 40px;
+    }
+
+    .footer-logo {
+      height: 80px;
+      margin-bottom: 20px;
+    }
+
+    .footer-about p {
+      margin-bottom: 20px;
+      color: #dcdcdc;
+    }
+
+    .footer-social {
+      display: flex;
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .social-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      background-color: rgba(255,255,255,0.1);
+      border-radius: 50%;
+      transition: all 0.3s;
+    }
+
+    .social-icon:hover {
+      background-color: var(--primary-color);
+      transform: translateY(-3px);
+    }
+
+    .footer-title {
+      font-size: 1.3rem;
+      margin-bottom: 20px;
+      color: white;
+    }
+
+    .footer-links {
+      list-style: none;
+    }
+
+    .footer-links li {
+      margin-bottom: 10px;
+    }
+
+    .footer-links a {
+      color: #dcdcdc;
+      transition: all 0.3s;
+    }
+
+    .footer-links a:hover {
+      color: var(--primary-color);
+      padding-left: 5px;
+    }
+
+    .footer-contact p {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 15px;
+      color: #dcdcdc;
+    }
+
+    .footer-contact i {
+      color: var(--primary-color);
+      margin-top: 3px;
+    }
+
+    .footer-bottom {
+      text-align: center;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      color: #dcdcdc;
+      font-size: 0.9rem;
+    }
+
+    /* Декоративні елементи */
+    .decor-img {
+      position: fixed;
+      z-index: 0;
+      opacity: 0.2;
+      pointer-events: none;
+    }
+
+    .decor-left-1 {
+      top: 5%;
+      left: 0;
+      width: 140px;
+      transform: rotate(-10deg);
+    }
+
+    .decor-left-2 {
+      top: 65%;
+      left: 0;
+      width: 120px;
+      transform: rotate(5deg);
+    }
+
+    .decor-right-1 {
+      bottom: 10%;
+      right: 0;
+      width: 150px;
+      transform: rotate(15deg);
+    }
+
+    /* Анімації */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .fade-in {
+      animation: fadeIn 1s ease forwards;
+    }
+
+    /* Стилі для секції мерчу */
+    .merch-section {
+      background-color: var(--light-beige);
+    }
+
+    /* Категорії товарів */
+    .category-tabs {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 40px;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    .category-tab {
+      padding: 10px 25px;
+      background-color: white;
+      border-radius: 30px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s;
+      border: 2px solid transparent;
+    }
+
+    .category-tab:hover, .category-tab.active {
+      background-color: var(--primary-color);
+      color: white;
+      border-color: var(--primary-color);
+    }
+
+    /* Адаптивність */
+    @media (max-width: 992px) {
+      .hero h1 {
+        font-size: 3rem;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .mobile-menu-btn {
+        display: block;
+      }
+      
+      .nav-links {
+        position: fixed;
+        top: 80px;
+        left: -100%;
+        width: 100%;
+        height: calc(100vh - 80px);
+        background-color: white;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.5s ease;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+      }
+      
+      .nav-links.active {
+        left: 0;
+      }
+      
+      .nav-links li {
+        margin: 15px 0;
+      }
+      
+      .section {
+        padding: 60px 0;
+      }
+      
+      .section-title {
+        font-size: 2rem;
+      }
+
+      .filter-options {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .cart-dropdown {
+        width: 300px;
+        right: 10px;
+      }
+
+      .hero {
+        padding: 130px 0 60px;
+      }
+
+      .hero-content h1 {
+        font-size: 2.5rem;
+      }
+
+      .hero-content p {
+        font-size: 1.1rem;
+      }
+
+      .category-tabs {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .category-tab {
+        width: 80%;
+        text-align: center;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .hero h1 {
+        font-size: 2rem;
+      }
+      
+      .hero p {
+        font-size: 1.1rem;
+      }
+      
+      .footer-container {
+        grid-template-columns: 1fr;
+      }
+
+      .cart-dropdown {
+        width: 280px;
+      }
+
+      .perfume-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Декоративні елементи -->
+  <img src="https://i.pinimg.com/736x/4b/31/98/4b3198fb7e632f586bfda2166feadd49.jpg" class="decor-img decor-left-1" alt="Декоративна квітка">
+  <img src="https://i.pinimg.com/736x/9c/21/bd/9c21bdab02e4599313c455de5755def1.jpg" class="decor-img decor-left-2" alt="Декоративна квітка">
+  <img src="https://i.pinimg.com/736x/90/8a/e0/908ae003c864630358dc9fe9270c1915.jpg" class="decor-img decor-right-1" alt="Декоративна квітка">
+
+  <!-- Навігація -->
+  <nav class="navbar">
+    <div class="container navbar-container">
+      <a href="index.html" class="logo-link">
+        <img src="logo.png" alt="Le Parfum" class="logo">
+      </a>
+      
+      <button class="mobile-menu-btn" id="mobileMenuBtn">
+        <i class="fas fa-bars"></i>
+      </button>
+      
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Головна</a></li>
+        <li><a href="about.html">Про нас</a></li>
+        <li><a href="collection.html" class="active">Колекція</a></li>
+        <li><a href="gifts.html">Подарунки</a></li>
+        <li><a href="contact.html">Контакти</a></li>
+      </ul>
+      
+      <div class="cart-icon" id="cartIcon">
+        <i class="fas fa-shopping-bag"></i>
+        <span class="cart-count" id="cartCount">0</span>
+        <div class="cart-dropdown" id="cartDropdown">
+          <div class="cart-header">
+            <h4>Ваш кошик</h4>
+            <button id="closeCart"><i class="fas fa-times"></i></button>
+          </div>
+          <div class="cart-items" id="cartItems">
+            <!-- Тут будуть товари -->
+            <div class="cart-empty">Кошик порожній</div>
+          </div>
+          <div class="cart-total">
+            <span>Всього:</span>
+            <span id="cartTotal">0 ₴</span>
+          </div>
+          <button class="btn" style="width: 100%;">Оформити замовлення</button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Головна секція сторінки колекції -->
+  <header class="hero">
+    <div class="container hero-content fade-in">
+      <h1>Наша колекція</h1>
+      <p>Відкрийте для себе унікальні аромати та ексклюзивні аксесуари, створені з любов'ю та майстерністю</p>
+    </div>
+  </header>
+
+  <main>
+    <!-- Фільтри -->
+    <section class="section">
+      <div class="container">
+        <div class="filters">
+          <div class="filter-group">
+            <h3 class="filter-title">Категорії</h3>
+            <div class="filter-options">
+              <div class="filter-option active">Усі аромати</div>
+              <div class="filter-option">Жіночі</div>
+              <div class="filter-option">Чоловічі</div>
+              <div class="filter-option">Унісекс</div>
+            </div>
+          </div>
+          
+          <div class="filter-group">
+            <h3 class="filter-title">Цінова категорія</h3>
+            <div class="filter-options">
+              <div class="filter-option active">Усі</div>
+              <div class="filter-option">До 1500 ₴</div>
+              <div class="filter-option">1500 - 2500 ₴</div>
+              <div class="filter-option">Від 2500 ₴</div>
+            </div>
+          </div>
+          
+          <div class="filter-group">
+            <h3 class="filter-title">Нота</h3>
+            <div class="filter-options">
+              <div class="filter-option active">Усі</div>
+              <div class="filter-option">Квіткові</div>
+              <div class="filter-option">Деревні</div>
+              <div class="filter-option">Фруктові</div>
+              <div class="filter-option">Свіжі</div>
+              <div class="filter-option">Пряні</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Колекція ароматів -->
+    <section class="section">
+      <div class="container">
+        <div class="collection-header">
+          <h2 class="section-title">Аромати</h2>
+          <p class="section-subtitle">Оберіть свій унікальний парфум з нашої колекції</p>
+        </div>
+        
+        <div class="perfume-grid">
+          <!-- Жіночі аромати -->
+          <div class="perfume-card">
+            <div class="perfume-badge">Новинка</div>
+            <img src="https://i.pinimg.com/736x/cc/7b/2d/cc7b2dbeb73c2812cdfb005e51d27749.jpg" alt="Fleur d'Amour" class="perfume-img">
+            <div class="perfume-info">
+              <h3 class="perfume-name">Fleur d'Amour</h3>
+              <p class="perfume-description">Ніжний квітковий аромат з нотами жасмину, троянди та ванілі</p>
+              <p class="perfume-price">1 850 ₴</p>
+              <button class="add-to-cart" data-id="1" data-name="Fleur d'Amour" data-price="1850" data-image="https://i.pinimg.com/736x/cc/7b/2d/cc7b2dbeb73c2812cdfb005e51d27749.jpg">Додати до кошика</button>
+            </div>
+          </div>
+          
+          <div class="perfume-card">
+            <div class="perfume-badge">Хіт</div>
+            <img src="https://i.pinimg.com/1200x/9d/b7/7e/9db77ed0923b1883b366f6101348100a.jpg" alt="Rose Éternelle" class="perfume-img">
+            <div class="perfume-info">
+              <h3 class="perfume-name">Rose Éternelle</h3>
+              <p class="perfume-description">Романтичний аромат з нотами болгарської троянди, піонів та білого мускусу</p>
+              <p class="perfume-price">2 200 ₴</p>
+              <button class="add-to-cart" data-id="2" data-name="Rose Éternelle" data-price="2200" data-image="https://i.pinimg.com/1200x/9d/b7/7e/9db77ed0923b1883b366f6101348100a.jpg">Додати до кошика</button>
+            </div>
+          </div>
+          
+          <div class="perfume-card">
+            <img src="https://i.pinimg.com/736x/8e/df/2a/8edf2a64cf6591d8f450a01abc970e50.jpg" alt="Jardin Secret" class="perfume-img">
+            <div class="perfume-info">
+              <h3 class="perfume-name">Jardin Secret</h3>
+              <p class="perfume-description">Свіжий квітковий аромат з нотами лілії, фрезії та зелених листків</p>
+              <p class="perfume-price">1 950 ₴</p>
+              <button class="add-to-cart" data-id="3" data-name="Jardin Secret" data-price="1950" data-image="https://i.pinimg.com/736x/8e/df/2a/8edf2a64cf6591d8f450a01abc970e50.jpg">Додати до кошика</button>
+            </div>
+          </div>
+          
+          <div class="perfume-card">
+            <div class="perfume-badge">Акція</div>
+            <img src="https://i.pinimg.com/736x/1d/5b/d8/1d5bd8e332ce6ad06db5ac8970ac8e61.jpg" alt="Vanille Noire" class="perfume-img">
+            <div class="perfume-info">
+              <h3 class="perfume-name">Vanille Noire</h3>
+              <p class="perfume-description">Гарячий, солодкий аромат з нотами ванілі, какао та пачулі</p>
+              <p class="perfume-price">2 500 ₴ <span class="perfume-old-price">2 900 ₴</span></p>
+              <button class="add-to-cart" data-id="4" data-name="Vanille Noire" data-price="2500" data-image="https://i.pinimg.com/736x/1d/5b/d8/1d5bd8e332ce6ad06db5ac8970ac8e61.jpg">Додати до кошика</button>
+            </div>
+          </div>
+          
+          <!-- Чоловічі аромати -->
+          <div class="perfume-card">
+            <img src="https://i.pinimg.com/1200x/8e/5a/b8/8e5ab86ffeb84c6efe8f6bfe46b91aa4.jpg" alt="Bois Mystique" class="perfume-img">
+            <div class="perfume-info">
+              <h3 class="perfume-name">Bois Mystique</h3>
+              <p class="perfume-description">Чоловічий аромат з нотами сандалу, пачулі та бергамоту</p>
+              <p class="perfume-price">2 100 ₴</p>
+              <button class="add-to-cart" data-id="5" data-name="Bois Mystique" data-price="2100" data-image="https://i.pinimg.com/1200x/8e/5a/b8/8e5ab86ffeb84c6efe8f6bfe46b91aa4.jpg">Додати до кошика</button>
+            </div>
+          </div>
+          
+          <div class="perfume-card">
+            <div class="perfume-badge">Новинка</div>
+            <img src="https://i.pinimg.com/736x/07/56/e3/0756e353de8ca897d6bb7249f23910f9.jpg" alt="Cuir Noir" class="perfume-img">
+            <div class="perfume-info">
+              <h3 class="perfume-name">Cuir Noir</h3>
+              <p class="perfume-description">Інтенсивний чоловічий аромат з нотами шкіри, тютюну та амбри</p>
+              <p class="perfume-price">2 400 ₴</p>
+              <button class="add-to-cart" data-id="6" data-name="Cuir Noir" data-price="2400" data-image="https://i.pinimg.com/736x/07/56/e3/0756e353de8ca897d6bb7249f23910f9.jpg">Додати до кошика</button>
+            </div>
+          </div>
+          
+          <div class="perfume-card">
+            <img src="https://i.pinimg.com/1200x/24/97/60/24976064d8d80a63e701fbb4481fc367.jpg" alt="Citron Vert" class="perfume-img">
+            <div class="perfume-info">
+              <h3 class="perfume-name">Citron Vert</h3>
+              <p class="perfume-description">Свіжий цитрусовий аромат з нотами лимона, базиліку та м'яти</p>
+              <p class="perfume-price">1 800 ₴</p>
+              <button class="add-to-cart" data-id="7" data-name="Citron Vert" data-price="1800" data-image="https://i.pinimg.com/1200x/24/97/60/24976064d8d80a63e701fbb4481fc367.jpg">Додати до кошика</button>
+            </div>
+          </div>
+          
+          <div class="perfume-card">
+            <div class="perfume-badge">Акція</div>
+            <img src="https://i.pinimg.com/736x/d7/1c/9e/d71c9ee3817af6748a5120cd38722fd5.jpg" alt="Tobacco Royal" class="perfume-img">
+            <div class="perfume-info">
+              <h3 class="perfume-name">Tobacco Royal</h3>
+              <p class="perfume-description">Благородний аромат з нотами тютюну, вайлі та дубового моху</p>
+              <p class="perfume-price">2 300 ₴ <span class="perfume-old-price">2 600 ₴</span></p>
+              <button class="add-to-cart" data-id="8" data-name="Tobacco Royal" data-price="2300" data-image="https://i.pinimg.com/736x/d7/1c/9e/d71c9ee3817af6748a5120cd38722fd5.jpg">Додати до кошика</button>
+            </div>
+          </div>
+          
+          <!-- Унісекс аромати -->
+          <div class="perfume-card">
+            <img src="https://i.pinimg.com/1200x/ab/52/fd/ab52fd48ac49748abd913d16b4b9563d.jpg" alt="Nuit Étoilée" class="perfume-img">
+            <div class="perfume-info">
+              <h3 class="perfume-name">Nuit Étoilée</h3>
+              <p class="perfume-description">Загадковий унісекс аромат з нотами амбри, мускусу та чорної смородини</p>
+              <p class="perfume-price">2 350 ₴</p>
+              <button class="add-to-cart" data-id="9" data-name="Nuit Étoilée" data-price="2350" data-image="https://i.pinimg.com/1200x/ab/52/fd/ab52fd48ac49748abd913d16b4b9563d.jpg">Додати до кошика</button>
+            </div>
+          </div>
+          
+          <div class="perfume-card">
+            <div class="perfume-badge">Хіт</div>
+            <img src="https://i.pinimg.com/1200x/11/d4/20/11d4207a74c93a1297537e8c03efabcf.jpg" alt="Oud Majestueux" class="perfume-img">
+            <div class="perfume-info">
+              <h3 class="perfume-name">Oud Majestueux</h3>
+              <p class="perfume-description">Розкішний аромат з нотами дерева уд, шафрану та ванілі</p>
+              <p class="perfume-price">3 200 ₴</p>
+              <button class="add-to-cart" data-id="10" data-name="Oud Majestueux" data-price="3200" data-image="https://i.pinimg.com/1200x/11/d4/20/11d4207a74c93a1297537e8c03efabcf.jpg">Додати до кошика</button>
+            </div>
+          </div>
+          
+          <div class="perfume-card">
+            <img src="https://i.pinimg.com/736x/0c/6e/09/0c6e09fa60dca87aef888c0e91b519dd.jpg" alt="Thé Blanc" class="perfume-img">
+            <div class="perfume-info">
+              <h3 class="perfume-name">Thé Blanc</h3>
+              <p class="perfume-description">Ніжний аромат з нотами білого чаю, жасмину та білого мускусу</p>
+              <p class="perfume-price">2 100 ₴</p>
+              <button class="add-to-cart" data-id="11" data-name="Thé Blanc" data-price="2100" data-image="https://i.pinimg.com/736x/0c/6e/09/0c6e09fa60dca87aef888c0e91b519dd.jpg">Додати до кошика</button>
+            </div>
+          </div>
+          
+          <div class="perfume-card">
+            <div class="perfume-badge">Акція</div>
+            <img src="https://i.pinimg.com/736x/13/5a/a6/135aa66a0446f48573289a1d7e505e07.jpg" alt="Figue Sauvage" class="perfume-img">
+            <div class="perfume-info">
+              <h3 class="perfume-name">Figue Sauvage</h3>
+              <p class="perfume-description">Фруктово-деревний аромат з нотами інжиру, кедра та ванілі</p>
+              <p class="perfume-price">2 000 ₴ <span class="perfume-old-price">2 400 ₴</span></p>
+              <button class="add-to-cart" data-id="12" data-name="Figue Sauvage" data-price="2000" data-image="https://i.pinimg.com/736x/13/5a/a6/135aa66a0446f48573289a1d7e505e07.jpg">Додати до кошика</button>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Пагінація -->
+        <div class="pagination">
+          <a href="#" class="page-link"><i class="fas fa-chevron-left"></i></a>
+          <a href="#" class="page-link active">1</a>
+          <a href="#" class="page-link">2</a>
+          <a href="#" class="page-link">3</a>
+          <a href="#" class="page-link"><i class="fas fa-chevron-right"></i></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Секція мерчу (сувенірна продукція) -->
+    <section class="section merch-section">
+      <div class="container">
+        <div class="collection-header">
+          <h2 class="section-title">Сувенірна продукція</h2>
+          <p class="section-subtitle">Ексклюзивні аксесуари та мерч від Le Parfum</p>
+        </div>
+
+        <!-- Таби для категорій мерчу -->
+        <div class="category-tabs">
+          <div class="category-tab active">Вся продукція</div>
+          <div class="category-tab">Одяг</div>
+          <div class="category-tab">Аксесуари</div>
+          <div class="category-tab">Лімітовані парфуми</div>
+        </div>
+        
+        <div class="perfume-grid">
+          <!-- Футболка -->
+          <div class="perfume-card">
+            <div class="perfume-badge">Популярне</div>
+            <img src="футболка.png" alt="Футболка Le Parfum" class="perfume-img">
+            <div class="perfume-info">
+              <h3 class="perfume-name">Футболка Le Parfum</h3>
+              <p class="perfume-description">Ексклюзивна бавовняна футболка з логотипом бренду, зручна та стильна</p>
+              <p class="perfume-price">450 ₴</p>
+              <button class="add-to-cart" data-id="13" data-name="Футболка Le Parfum" data-price="450" data-image="https://via.placeholder.com/400x300/F5F5DC/666666?text=Футболка+макет">Додати до кошика</button>
+            </div>
+          </div>
+          
+          <!-- Шопер -->
+          <div class="perfume-card">
+            <img src="шопер.png" alt="Шопер Le Parfum" class="perfume-img">
+            <div class="perfume-info">
+              <h3 class="perfume-name">Екошопер Le Parfum</h3>
+              <p class="perfume-description">Екологічний шопер з унікальним дизайном, місткість 20л</p>
+              <p class="perfume-price">380 ₴</p>
+              <button class="add-to-cart" data-id="14" data-name="Екошопер Le Parfum" data-price="380" data-image="https://via.placeholder.com/400x300/E6F3E6/666666?text=Шопер+макет">Додати до кошика</button>
+            </div>
+          </div>
+          
+          <!-- Брелок -->
+          <div class="perfume-card">
+            <div class="perfume-badge">Новинка</div>
+            <img src="брелок.png" alt="Брелок Le Parfum" class="perfume-img">
+            <div class="perfume-info">
+              <h3 class="perfume-name">Металевий брелок</h3>
+              <p class="perfume-description">Елегантний брелок з логотипом у формі флакона, нержавіюча сталь</p>
+              <p class="perfume-price">220 ₴</p>
+              <button class="add-to-cart" data-id="15" data-name="Металевий брелок" data-price="220" data-image="https://via.placeholder.com/400x300/F0E6FF/666666?text=Брелок+макет">Додати до кошика</button>
+            </div>
+          </div>
+          
+          <!-- Стакан -->
+          <div class="perfume-card">
+            <img src="стакан.png" alt="Стакан Le Parfum" class="perfume-img">
+            <div class="perfume-info">
+              <h3 class="perfume-name">Керамічний стакан</h3>
+              <p class="perfume-description">Стакан для щоденного використання з фірмовим дизайном, 350мл</p>
+              <p class="perfume-price">320 ₴</p>
+              <button class="add-to-cart" data-id="16" data-name="Керамічний стакан" data-price="320" data-image="https://via.placeholder.com/400x300/FFF0F5/666666?text=Стакан+макет">Додати до кошика</button>
+            </div>
+          </div>
+          
+          <!-- Пакет -->
+          <div class="perfume-card">
+            <img src="пакет.png" alt="Пакет Le Parfum" class="perfume-img">
+            <div class="perfume-info">
+              <h3 class="perfume-name">Подарунковий пакет</h3>
+              <p class="perfume-description">Елегантний паперовий пакет для подарунків з золотим тисненням</p>
+              <p class="perfume-price">80 ₴</p>
+              <button class="add-to-cart" data-id="17" data-name="Подарунковий пакет" data-price="80" data-image="https://via.placeholder.com/400x300/F5F5F5/666666?text=Пакет+макет">Додати до кошика</button>
+            </div>
+          </div>
+          
+          <!-- Блокнот -->
+          <div class="perfume-card">
+            <div class="perfume-badge">Хіт</div>
+            <img src="блокнот.png" alt="Блокнот Le Parfum" class="perfume-img">
+            <div class="perfume-info">
+              <h3 class="perfume-name">Шкіряний блокнот</h3>
+              <p class="perfume-description">Мініатюрний блокнот з ароматизованими сторінками, 80 аркушів</p>
+              <p class="perfume-price">280 ₴</p>
+              <button class="add-to-cart" data-id="18" data-name="Шкіряний блокнот" data-price="280" data-image="https://via.placeholder.com/400x300/F9F5F0/666666?text=Блокнот+макет">Додати до кошика</button>
+            </div>
+          </div>
+          
+          <!-- Парфум 1 (спеціальний) -->
+          <div class="perfume-card">
+            <div class="perfume-badge">Лімітована серія</div>
+            <img src="парфуми.png" alt="L'Exclusif" class="perfume-img">
+            <div class="perfume-info">
+              <h3 class="perfume-name">L'Exclusif</h3>
+              <p class="perfume-description">Лімітований аромат з нотами шафрану, троянди та ванілі, 50мл</p>
+              <p class="perfume-price">3 500 ₴</p>
+              <button class="add-to-cart" data-id="19" data-name="L'Exclusif" data-price="3500" data-image="https://via.placeholder.com/400x300/E8F4F8/666666?text=L'Exclusif+макет">Додати до кошика</button>
+            </div>
+          </div>
+          
+          <!-- Парфум 2 (спеціальний) -->
+          <div class="perfume-card">
+            <div class="perfume-badge">Ексклюзив</div>
+            <img src="парфуми2.png" alt="L'Élégance" class="perfume-img">
+            <div class="perfume-info">
+              <h3 class="perfume-name">L'Élégance</h3>
+              <p class="perfume-description">Ексклюзивний унісекс аромат з нотами ірису, амбри та дерева, 50мл</p>
+              <p class="perfume-price">3 800 ₴</p>
+              <button class="add-to-cart" data-id="20" data-name="L'Élégance" data-price="3800" data-image="https://via.placeholder.com/400x300/F0F8FF/666666?text=L'Élégance+макет">Додати до кошика</button>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Пагінація для мерчу -->
+        <div class="pagination">
+          <a href="#" class="page-link"><i class="fas fa-chevron-left"></i></a>
+          <a href="#" class="page-link active">1</a>
+          <a href="#" class="page-link">2</a>
+          <a href="#" class="page-link"><i class="fas fa-chevron-right"></i></a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Підвал -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-container">
+        <div class="footer-about">
+          <img src="logo.png" alt="Le Parfum" class="footer-logo">
+          <p>Le Parfum — авторська парфумерія преміум класу. Унікальні аромати з натуральних інгредієнтів.</p>
+          <div class="footer-social">
+            <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-pinterest-p"></i></a>
+          </div>
+        </div>
+        
+        <div class="footer-links">
+          <h3 class="footer-title">Навігація</h3>
+          <ul>
+            <li><a href="index.html">Головна</a></li>
+            <li><a href="about.html">Про нас</a></li>
+            <li><a href="collection.html">Колекція</a></li>
+            <li><a href="gifts.html">Подарунки</a></li>
+            <li><a href="contact.html">Контакти</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-contact">
+          <h3 class="footer-title">Контакти</h3>
+          <p><i class="fas fa-map-marker-alt"></i> вул. Парфумерна, 15, Львів, Україна</p>
+          <p><i class="fas fa-phone"></i> +380 12 345 6789</p>
+          <p><i class="fas fa-envelope"></i> info@leparfum.com</p>
+          <p><i class="fas fa-clock"></i> Пн-Пт: 10:00 - 19:00</p>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <p>&copy; 2023 Le Parfum. Всі права захищені.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Мобільне меню
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const navLinks = document.getElementById('navLinks');
+    
+    mobileMenuBtn.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
+    });
+    
+    // Плавна прокрутка для всіх посилань
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        
+        const targetId = this.getAttribute('href');
+        if (targetId === '#') return;
+        
+        const targetElement = document.querySelector(targetId);
+        if (targetElement) {
+          targetElement.scrollIntoView({
+            behavior: 'smooth'
+          });
+        }
+      });
+    });
+    
+    // Зміна навігації при скролі
+    window.addEventListener('scroll', function() {
+      const navbar = document.querySelector('.navbar');
+      if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    });
+
+    // Кошик
+    const cartIcon = document.getElementById('cartIcon');
+    const cartDropdown = document.getElementById('cartDropdown');
+    const closeCart = document.getElementById('closeCart');
+    const cartCount = document.getElementById('cartCount');
+    const cartItems = document.getElementById('cartItems');
+    const cartTotal = document.getElementById('cartTotal');
+    const addToCartButtons = document.querySelectorAll('.add-to-cart');
+    
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    
+    // Відкриття/закриття кошика
+    cartIcon.addEventListener('click', (e) => {
+      e.stopPropagation();
+      cartDropdown.classList.toggle('active');
+      updateCart();
+    });
+    
+    closeCart.addEventListener('click', () => {
+      cartDropdown.classList.remove('active');
+    });
+    
+    // Закриття кошика при кліку поза ним
+    document.addEventListener('click', (e) => {
+      if (!cartIcon.contains(e.target) && !cartDropdown.contains(e.target)) {
+        cartDropdown.classList.remove('active');
+      }
+    });
+    
+    // Додавання товару до кошика
+    addToCartButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const id = button.getAttribute('data-id');
+        const name = button.getAttribute('data-name');
+        const price = parseInt(button.getAttribute('data-price'));
+        const image = button.getAttribute('data-image');
+        
+        // Перевіряємо, чи товар вже є в кошику
+        const existingItem = cart.find(item => item.id === id);
+        
+        if (existingItem) {
+          existingItem.quantity += 1;
+        } else {
+          cart.push({
+            id,
+            name,
+            price,
+            image,
+            quantity: 1
+          });
+        }
+        
+        // Зберігаємо кошик в localStorage
+        localStorage.setItem('cart', JSON.stringify(cart));
+        
+        updateCart();
+        cartDropdown.classList.add('active');
+        
+        // Анімація додавання до кошика
+        button.textContent = 'Додано!';
+        button.style.backgroundColor = '#4CAF50';
+        setTimeout(() => {
+          button.textContent = 'Додати до кошика';
+          button.style.backgroundColor = '';
+        }, 1000);
+      });
+    });
+    
+    // Оновлення кошика
+    function updateCart() {
+      // Оновлення кількості товарів
+      const totalCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+      cartCount.textContent = totalCount;
+      
+      // Оновлення списку товарів
+      if (cart.length === 0) {
+        cartItems.innerHTML = '<div class="cart-empty">Кошик порожній</div>';
+      } else {
+        cartItems.innerHTML = '';
+        cart.forEach(item => {
+          const cartItemElement = document.createElement('div');
+          cartItemElement.className = 'cart-item';
+          cartItemElement.innerHTML = `
+            <img src="${item.image}" alt="${item.name}" class="cart-item-img">
+            <div class="cart-item-details">
+              <h4 class="cart-item-name">${item.name}</h4>
+              <p class="cart-item-price">${item.price} ₴ × ${item.quantity} = ${item.price * item.quantity} ₴</p>
+              <p class="cart-item-remove" data-id="${item.id}">Видалити</p>
+            </div>
+          `;
+          cartItems.appendChild(cartItemElement);
+        });
+        
+        // Додавання обробників подій для кнопок видалення
+        document.querySelectorAll('.cart-item-remove').forEach(button => {
+          button.addEventListener('click', () => {
+            const itemId = button.getAttribute('data-id');
+            cart = cart.filter(item => item.id !== itemId);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCart();
+          });
+        });
+      }
+      
+      // Оновлення загальної суми
+      const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+      cartTotal.textContent = `${totalPrice} ₴`;
+    }
+    
+    // Ініціалізація кошика при завантаженні сторінки
+    updateCart();
+    
+    // Фільтрація товарів
+    const filterOptions = document.querySelectorAll('.filter-option');
+    
+    filterOptions.forEach(option => {
+      option.addEventListener('click', function() {
+        // Видаляємо клас active з усіх опцій у групі
+        const parentGroup = this.closest('.filter-group');
+        parentGroup.querySelectorAll('.filter-option').forEach(opt => {
+          opt.classList.remove('active');
+        });
+        
+        // Додаємо клас active до обраної опції
+        this.classList.add('active');
+      });
+    });
+
+    // Таби для категорій мерчу
+    const categoryTabs = document.querySelectorAll('.category-tab');
+    
+    categoryTabs.forEach(tab => {
+      tab.addEventListener('click', function() {
+        // Видаляємо клас active з усіх табів
+        categoryTabs.forEach(t => t.classList.remove('active'));
+        
+        // Додаємо клас active до обраного табу
+        this.classList.add('active');
+        
+        // Тут можна додати логіку фільтрації товарів мерчу
+        // Наприклад, показувати тільки товари обраної категорії
+      });
+    });
+
+    // Плавне завантаження секцій при скролі
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, observerOptions);
+
+    // Спостерігаємо за всіма секціями
+    document.querySelectorAll('section').forEach(section => {
+      section.style.opacity = '0';
+      section.style.transform = 'translateY(20px)';
+      section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+      observer.observe(section);
+    });
+  </script>
+</body>
+</html>
